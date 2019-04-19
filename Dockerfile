@@ -24,7 +24,7 @@ WORKDIR /root/
 
 # Copy files from previous build container
 COPY --from=build /go/src/github.com/jamespearly/hello/main ./
-COPY --from=build /go/src/github.com/jamespearly/hello/assets ./assets/
+# COPY --from=build /go/src/github.com/jamespearly/hello/assets ./assets/
 
 RUN pwd && find .
 
