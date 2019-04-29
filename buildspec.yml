@@ -15,4 +15,4 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/jearly-hello:latest
+      - docker push 817615305328.dkr.ecr.us-east-1.amazonaws.com/jearly-hello:latest
