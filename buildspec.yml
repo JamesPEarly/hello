@@ -10,7 +10,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t hello:latest .
-      - docker tag hello:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/jearly-hello:latest      
+      - docker tag hello:latest 817615305328.dkr.ecr.us-east-1.amazonaws.com/jearly-hello:latest      
   post_build:
     commands:
       - echo Build completed on `date`
