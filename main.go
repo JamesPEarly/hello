@@ -7,7 +7,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-
 func main() {
 	// Set up the router
 	r := mux.NewRouter()
