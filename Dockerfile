@@ -2,11 +2,11 @@
 FROM golang:latest AS build
 
 # Copy source
-WORKDIR /go/src/github.com/jamespearly/hello
+WORKDIR /build
 COPY . .
 
-# If packages are installed in ./vendor (using dep), we do not need a `go get`
-RUN go get -d -v ./...
+# Download dependencies
+RUN go mod download
 
 # Build a statically-linked Go binary for Linux
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
@@ -20,11 +20,11 @@ RUN apk update && \
     apk add ca-certificates && \
     apk add tzdata
 
-WORKDIR /root/
+WORKDIR /app
 
 # Copy files from previous build container
-COPY --from=build /go/src/github.com/jamespearly/hello/main ./
-# COPY --from=build /go/src/github.com/jamespearly/hello/assets ./assets/
+COPY --from=build /build/main ./
+# COPY --from=build /build/assets ./assets/
 
 RUN pwd && find .
 
