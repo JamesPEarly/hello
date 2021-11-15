@@ -1,6 +1,7 @@
 # Start the Go app build
 # FROM golang:latest AS build
-FROM 713290919116.dkr.ecr.us-east-1.amazonaws.com/golang AS build
+# FROM 713290919116.dkr.ecr.us-east-1.amazonaws.com/golang AS build
+FROM golang:latest AS build
 
 # Copy source
 WORKDIR /build
@@ -13,8 +14,8 @@ RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
 
 # New build phase -- create binary-only image
-# FROM alpine:latest
-FROM 713290919116.dkr.ecr.us-east-1.amazonaws.com/alpine
+FROM alpine:latest
+# FROM 713290919116.dkr.ecr.us-east-1.amazonaws.com/alpine
 
 # Add support for HTTPS and time zones
 RUN apk update && \
