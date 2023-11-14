@@ -1,10 +1,12 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -22,6 +24,10 @@ func init() {
 }
 
 func main() {
+	// Check for port number argument
+	portPtr := flag.Int("port", 8080, "Listening Port Number")
+	flag.Parse()
+
 	// Set up the router
 	r := mux.NewRouter()
 	r.HandleFunc("/jearly/hello", func(w http.ResponseWriter, r *http.Request) {
@@ -44,5 +50,8 @@ func main() {
 		}
 	})
 
-	http.ListenAndServe(":8080", r)
+	// Construct port string
+	portStr := ":" + strconv.Itoa(*portPtr)
+	fmt.Println("Listening port " + portStr)
+	http.ListenAndServe(portStr, r)
 }

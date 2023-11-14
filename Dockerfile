@@ -1,6 +1,4 @@
 # Start the Go app build
-# FROM golang:latest AS build
-# FROM 713290919116.dkr.ecr.us-east-1.amazonaws.com/golang AS build
 FROM golang:latest AS build
 
 # Copy source
@@ -15,7 +13,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
 
 # New build phase -- create binary-only image
 FROM alpine:latest
-# FROM 713290919116.dkr.ecr.us-east-1.amazonaws.com/alpine
 
 # Add support for HTTPS and time zones
 RUN apk update && \
@@ -27,9 +24,12 @@ WORKDIR /app
 
 # Copy files from previous build container
 COPY --from=build /build/main ./
-# COPY --from=build /build/assets ./assets/
+#COPY --from=build /build/assets ./assets/
 
 RUN pwd && find .
+
+# Identify listening port
+EXPOSE 8080
 
 # Start the application
 CMD ["./main"]
