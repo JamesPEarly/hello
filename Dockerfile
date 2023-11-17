@@ -1,6 +1,8 @@
 # Start the Go app build
-# FROM golang:latest AS build # Uses Docker Hub
-FROM public.ecr.aws/docker/library/golang:latest AS build # Uses AWS Public Registry
+# Uses Docker Hub
+# FROM golang:latest AS build
+# Uses AWS Public Registry
+FROM public.ecr.aws/docker/library/golang:latest AS build
 
 # Copy source
 WORKDIR /build
@@ -13,8 +15,10 @@ RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
 
 # New build phase -- create binary-only image
-#FROM alpine:latest # From Docker Hub
-FROM public.ecr.aws/docker/library/alpine:latest # From AWS Public Repository
+# Uses Docker Hub
+# FROM alpine:latest # From Docker Hub
+# Uses AWS Public Registry
+FROM public.ecr.aws/docker/library/alpine:latest
 
 # Add support for HTTPS and time zones
 RUN apk update && \
